@@ -7,5 +7,12 @@ namespace Application
 {
     public class HomeService : IHomeService
     {
+        public HomeService()
+        {
+        }
+
+        public bool CreateAsync()
+        {
+        }
     }
 }
