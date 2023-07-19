@@ -25,5 +25,6 @@ namespace Pazzo
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Member> Member { get; set; }
     }
 }

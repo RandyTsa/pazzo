@@ -4,7 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5adcca328afe4587b0f3ace08f011154" Name="Diagram1" />
+      <Diagram DiagramId="4e0fad7d5b4549a799e49bf53e36a827" Name="Diagram1">
+        <EntityTypeShape EntityType="pazzoModel.Member" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

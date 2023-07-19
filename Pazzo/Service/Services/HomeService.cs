@@ -1,18 +1,35 @@
 ﻿using Application.Contracts;
+using Pazzo;
+using Pazzo.Models.Repositories;
+using Pazzo.Models.ViewModels;
+using Repository;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Application
 {
     public class HomeService : IHomeService
     {
-        public HomeService()
+        private readonly IMemberRepository memberRepository;
+
+        public HomeService(IMemberRepository memberRepository)
         {
+            this.memberRepository = memberRepository;
         }
 
-        public bool CreateAsync()
+        public async Task<ApplicationResult<Member>> CreateAsync(CreateViewModel createVM)
         {
+            var isParse = int.TryParse(createVM.Id, out int id);
+
+            if (!isParse)
+            {
+                throw new Exception("Id 只允許為數字");
+            }
+            var entity = new Member() { Id = id, Name = createVM.Name };
+
+            var effectRows = await memberRepository.CreateAsync(entity);
+
+            return effectRows > 0 ? ApplicationResult<Member>.Success : ApplicationResult<Member>.Failed();
         }
     }
 }

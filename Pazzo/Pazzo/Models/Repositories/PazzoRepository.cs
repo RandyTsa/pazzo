@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Pazzo.Models.Repositories
@@ -10,6 +11,7 @@ namespace Pazzo.Models.Repositories
     {
         private pazzoEntities db = null;
         private DbSet<Table> dbTable = null;
+        private pazzoEntities pazzoEntities;
 
         public PazzoRepository()
         {
@@ -17,16 +19,21 @@ namespace Pazzo.Models.Repositories
             dbTable = db.Set<Table>();
         }
 
-        public void Create(Table _entity)
+        public PazzoRepository(pazzoEntities pazzoEntities)
         {
-            dbTable.Add(_entity);
-            db.SaveChanges();
+            this.pazzoEntities = pazzoEntities;
         }
 
-        public void Delete(int id)
+        public async Task<int> CreateAsync(Table _entity)
         {
-            dbTable.Remove(GetByID(id));
-            db.SaveChanges();
+            dbTable.Add(_entity);
+            return await db.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            dbTable.Remove(await GetByIDAsync(id));
+            await db.SaveChangesAsync();
         }
 
         public IEnumerable<Table> GetAll()
@@ -34,15 +41,15 @@ namespace Pazzo.Models.Repositories
             return dbTable;
         }
 
-        public Table GetByID(int id)
+        public async Task<Table> GetByIDAsync(int id)
         {
-            return dbTable.Find(id);
+            return await dbTable.FindAsync(id);
         }
 
-        public void Update(Table _entity)
+        public async Task UpdateAsync(Table _entity)
         {
             db.Entry<Table>(_entity).State = EntityState.Modified;
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 }

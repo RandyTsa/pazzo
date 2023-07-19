@@ -8,14 +8,14 @@ namespace Pazzo.Models.Repositories
 {
     public interface IRepository<Table>
     {
-        void Create(Table _entity);
+        Task<int> CreateAsync(Table _entity);
 
-        void Delete(int id);
+        Task DeleteAsync(int id);
 
         IEnumerable<Table> GetAll();
 
-        Table GetByID(int id);
+        Task<Table> GetByIDAsync(int id);
 
-        void Update(Table _entity);
+        Task UpdateAsync(Table _entity);
     }
 }
